@@ -14,16 +14,17 @@ const db = knex({
   client: 'pg',
   connection: {
     host : '127.0.0.1',
-    user : 'aneagoie',
+    user : '',
     password : '',
-    database : 'smart-brain'
+    database : 'smart-brain-raw'
   }
 });
 
 const app = express();
 
 app.use(cors())
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get('/', (req, res)=> { res.send(db.users) })
 app.post('/signin', signin.handleSignin(db, bcrypt))
